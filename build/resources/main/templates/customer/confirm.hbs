@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/jpg" href="/image/icon/wataju_logo.jpg" sizes="16x16 24x24 32x32 48x48 64x64">
+    <title>{{tab}}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous">
+    </script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/index">{{title}}</a>
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/customer/list">お客様情報</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/product/list">商品情報</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/setting/index">設定</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="alert alert-primary">
+        <div class="row">
+            <div class="col order-first">
+                <div class="d-flex flex-row bd-highlight mb-3">
+                    <div class="p-2 bd-highlight">
+                        <h5>こんにちは、{{identifier}}さん</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col order-last">
+                <div class="d-flex flex-row-reverse bd-highlight">
+                    <div class="p-2 bd-highlight">
+                        <a href="/logout" class="btn btn-outline-primary btn-sm">ログアウト</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div>
+        {{#customer}}
+            {{#new_customer}}
+                <h2>{{familyName}} {{firstName}}様のお客様情報を以下の通り追加します</h2>
+            {{/new_customer}}
+            {{^new_customer}}
+                <h2>{{old.familyName}} {{old.firstName}}様のお客様情報を以下の通り更新します</h2>
+            {{/new_customer}}
+            <br>
+            <table class="table">
+                <tr><th>お客様名</th><td>{{familyName}} {{firstName}}</td></tr>
+                <tr><th>お客様名（カナ）</th><td>{{familyNameKana}} {{firstNameKana}}</td></tr>
+                <tr><th>郵便番号</th><td>{{zipcodeWard}}-{{zipcodeTown}}</td></tr>
+                <tr><th>都道府県</th><td>{{prefecture}}</td></tr>
+                <tr><th>住所１</th><td>{{address1}}</td></tr>
+                <tr><th>住所２</th><td>{{address2}}</td></tr>
+                <tr><th>住所３</th><td>{{address3}}</td></tr>
+                <tr><th>電話番号</th><td>{{phoneNumber}}</td></tr>
+                <tr><th>メールアドレス</th><td>{{mailAddress}}</td></tr>
+            </table>
+            <br>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <div class="p-2 bd-highlight">
+                    <a href="/customer/edit{{^new_customer}}/{{old.id}}{{/new_customer}}"
+                       class="btn btn-outline-info">編集に戻る</a>
+                </div>
+                <div class="p-2 bd-highlight">
+                    <a href="/customer/registry{{^new_customer}}/{{old.id}}{{/new_customer}}"
+                       class="btn btn-outline-danger">登録する</a>
+                </div>
+            </div>
+        {{/customer}}
+    </div>
+</div>
+
+</body>
+
+</html>

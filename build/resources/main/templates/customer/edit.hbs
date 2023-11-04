@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/jpg" href="/image/icon/wataju_logo.jpg" sizes="16x16 24x24 32x32 48x48 64x64">
+    <title>{{tab}}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous">
+    </script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/index">{{title}}</a>
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/customer/list">お客様情報</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/product/list">商品情報</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/setting/index">設定</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="alert alert-primary">
+        <div class="row">
+            <div class="col order-first">
+                <div class="d-flex flex-row bd-highlight mb-3">
+                    <div class="p-2 bd-highlight">
+                        <h5>こんにちは、{{identifier}}さん</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col order-last">
+                <div class="d-flex flex-row-reverse bd-highlight">
+                    <div class="p-2 bd-highlight">
+                        <a href="/logout" class="btn btn-outline-primary btn-sm">ログアウト</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div>
+        {{#new_customer}}
+            <h2>新しいお客様情報を作成します</h2>
+        {{/new_customer}}
+        {{^new_customer}}
+            <h2>{{customer.familyName}} {{customer.firstName}}様の顧客情報を編集します</h2>
+        {{/new_customer}}
+        <br>
+        <div>
+            <form method="post" action="/customer/confirm{{^new_customer}}/{{customer.id}}{{/new_customer}}" class="row g-3">
+                <div class="col-md-6">
+                    <label for="family-name">お客様姓</label>
+                    <input class="form-control" type="text" name="family-name" id="family-name" placeholder="山田">
+                </div>
+                <div class="col-md-6">
+                    <label for="first-name">お客様名</label>
+                    <input class="form-control" type="text" name="first-name" id="first-name" placeholder="太郎">
+                </div>
+                <div class="col-md-6">
+                    <label for="family-name-kana">お客様姓（カナ）</label>
+                    <input class="form-control" type="text" name="family-name-kana" id="family-name-kana" placeholder="ヤマダ">
+                </div>
+                <div class="col-md-6">
+                    <label for="first-name-kana">お客様名（カナ）</label>
+                    <input class="form-control" type="text" name="first-name-kana" id="first-name-kana" placeholder="タロウ">
+                </div>
+                <div class="col-md-3">
+                    <label for="zipcode-ward">郵便番号（区）</label>
+                    <input class="form-control" type="text" name="zipcode-ward" id="zipcode-ward" placeholder="123">
+                </div>
+                <div class="col-md-3">
+                    <label for="zipcode-town">郵便番号（地域）</label>
+                    <input class="form-control" type="text" name="zipcode-town" id="zipcode-town" placeholder="4567">
+                </div>
+                <div class="col-md-6">
+                    <label for="prefecture">都道府県</label>
+                    <select class="form-select" name="prefecture" id="prefecture">
+                        <option selected>北海道</option>
+                        <option>青森県</option>
+                        <option>秋田県</option>
+                        <option>岩手県</option>
+                        <option>山形県</option>
+                        <option>宮城県</option>
+                        <option>福島県</option>
+                        <option>群馬県</option>
+                        <option>栃木県</option>
+                        <option>茨城県</option>
+                        <option>埼玉県</option>
+                        <option>東京都</option>
+                        <option>千葉県</option>
+                        <option>神奈川県</option>
+                        <option>山梨県</option>
+                        <option>新潟県</option>
+                        <option>長野県</option>
+                        <option>富山県</option>
+                        <option>石川県</option>
+                        <option>静岡県</option>
+                        <option>愛知県</option>
+                        <option>岐阜県</option>
+                        <option>三重県</option>
+                        <option>滋賀県</option>
+                        <option>京都府</option>
+                        <option>大阪府</option>
+                        <option>奈良県</option>
+                        <option>和歌山県</option>
+                        <option>兵庫県</option>
+                        <option>岡山県</option>
+                        <option>鳥取県</option>
+                        <option>広島県</option>
+                        <option>島根県</option>
+                        <option>山口県</option>
+                        <option>徳島県</option>
+                        <option>香川県</option>
+                        <option>愛媛県</option>
+                        <option>高知県</option>
+                        <option>福岡県</option>
+                        <option>佐賀県</option>
+                        <option>長崎県</option>
+                        <option>大分県</option>
+                        <option>熊本県</option>
+                        <option>宮崎県</option>
+                        <option>鹿児島県</option>
+                        <option>沖縄県</option>
+                    </select>
+                </div>
+                <div class="col-12">
+                    <label for="address-1">住所１</label>
+                    <input class="form-control" type="text" name="address-1" id="address-1" placeholder="安八郡神戸町">
+                </div>
+                <div class="col-12">
+                    <label for="address-2">住所２</label>
+                    <input class="form-control" type="text" name="address-2" id="address-2" placeholder="川西">
+                </div>
+                <div class="col-12">
+                    <label for="address-3">住所３</label>
+                    <input class="form-control" type="text" name="address-3" id="address-3" placeholder="88-1">
+                </div>
+                <div class="col-md-6">
+                    <label for="phone-number">電話番号</label>
+                    <input class="form-control" type="text" name="phone-number" id="phone-number" placeholder="090-0000-0000">
+                </div>
+                <div class="col-md-6">
+                    <label for="mail-address">メールアドレス</label>
+                    <input class="form-control" type="text" name="mail-address" id="mail-address" placeholder="wataju@example.co.jp">
+                </div>
+                <br>
+                <button type="submit" class="btn btn-outline-danger">確認</button>
+            </form>
+            <br>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
