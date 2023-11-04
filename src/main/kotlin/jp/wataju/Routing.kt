@@ -165,7 +165,7 @@ fun Application.routing() {
                     val familyName = customerInfoParams["family-name"] ?: ""
                     val firstName = customerInfoParams["first-name"] ?: ""
                     if ((familyName != "") and  (firstName != "")) {
-                        RegistryPool.customerRegistry = CustomerRegistry(
+                        RegistryStorage.customerRegistry = CustomerRegistry(
                             familyName = familyName,
                             firstName = firstName,
                             familyNameKana = customerInfoParams["family-name-kana"] ?: "",
@@ -184,7 +184,7 @@ fun Application.routing() {
                             "tab" to TAB,
                             "title" to TITLE,
                             "identifier" to session.identifier,
-                            "customer" to RegistryPool.customerRegistry,
+                            "customer" to RegistryStorage.customerRegistry,
                             "new_customer" to true
                         )
 
@@ -200,7 +200,7 @@ fun Application.routing() {
                 val session = call.sessions.get() ?: AccountSession(null, null, null)
 
                 if (session.id != null) {
-                    val customerPool = RegistryPool.customerRegistry
+                    val customerPool = RegistryStorage.customerRegistry
                     val date = Date().toString()
                     val id = session.id
                     CustomerService(databaseConfig).create(
@@ -278,7 +278,7 @@ fun Application.routing() {
                     val familyName = customerInfoParams["family-name"] ?: ""
                     val firstName = customerInfoParams["first-name"] ?: ""
                     if ((familyName != "") || (firstName != "")) {
-                        RegistryPool.customerRegistry = CustomerRegistry(
+                        RegistryStorage.customerRegistry = CustomerRegistry(
                             familyName = familyName,
                             firstName = firstName,
                             familyNameKana = customerInfoParams["family-name-kana"] ?: "",
@@ -299,7 +299,7 @@ fun Application.routing() {
                             "title" to TITLE,
                             "identifier" to session.identifier,
                             "old" to old,
-                            "customer" to RegistryPool.customerRegistry,
+                            "customer" to RegistryStorage.customerRegistry,
                             "new_customer" to false
                         )
 
@@ -317,7 +317,7 @@ fun Application.routing() {
                 if (session.id != null) {
                     val customerId = call.parameters["customerId"] ?: ""
 
-                    val customerPool = RegistryPool.customerRegistry
+                    val customerPool = RegistryStorage.customerRegistry
                     val date = Date().toString()
                     val id = session.id
                     CustomerService(databaseConfig).update(
@@ -408,7 +408,7 @@ fun Application.routing() {
                     if (productInfoParams["enabled"] == "on") enabled = Enabled.TRUE
 
                     if ((productName != "") and isNumeric) {
-                        RegistryPool.productRegistry = ProductRegistry(
+                        RegistryStorage.productRegistry = ProductRegistry(
                             productName = productName,
                             productNameKana = productInfoParams["product-name-kana"] ?: "",
                             price = numberOrString.toInt(),
@@ -419,7 +419,7 @@ fun Application.routing() {
                             "tab" to TAB,
                             "title" to TITLE,
                             "identifier" to session.identifier,
-                            "product" to RegistryPool.productRegistry,
+                            "product" to RegistryStorage.productRegistry,
                             "new_product" to true
                         )
 
@@ -435,7 +435,7 @@ fun Application.routing() {
                 val session = call.sessions.get() ?: AccountSession(null, null, null)
 
                 if (session.id != null) {
-                    val productPool = RegistryPool.productRegistry
+                    val productPool = RegistryStorage.productRegistry
                     val date = Date().toString()
                     val id = session.id
                     ProductService(databaseConfig).create(
@@ -509,7 +509,7 @@ fun Application.routing() {
                     if (productInfoParams["enabled"] == "on") enabled = Enabled.TRUE
 
                     if ((productName != "") or isNumeric) {
-                        RegistryPool.productRegistry = ProductRegistry(
+                        RegistryStorage.productRegistry = ProductRegistry(
                             productName = productName,
                             productNameKana = productInfoParams["product-name-kana"] ?: "",
                             price = numberOrString.toInt(),
@@ -522,7 +522,7 @@ fun Application.routing() {
                             "title" to TITLE,
                             "identifier" to session.identifier,
                             "old" to old,
-                            "product" to RegistryPool.productRegistry,
+                            "product" to RegistryStorage.productRegistry,
                             "new_product" to false
                         )
 
@@ -540,7 +540,7 @@ fun Application.routing() {
                 if (session.id != null) {
                     val productId = call.parameters["productId"] ?: ""
 
-                    val productPool = RegistryPool.productRegistry
+                    val productPool = RegistryStorage.productRegistry
                     val date = Date().toString()
                     val id = session.id
                     ProductService(databaseConfig).update(
@@ -630,7 +630,6 @@ fun Application.routing() {
                                 amounts += amount
                             }
                         }
-
                     val price = amounts * product!!.price
                     totalData.add(
                         mapOf(
@@ -686,7 +685,6 @@ fun Application.routing() {
                     val orderParams = call.receiveParameters()
                     val purchaseDate = orderParams["purchase-date"] ?: ""
                     if (purchaseDate != "") {
-
                         val separated = purchaseDate.split("-")
                         val formattedPurchaseDate = "${separated[0]}年${separated[1]}月${separated[2]}日"
                         val ordersMap = mutableMapOf<UUID, Int>()
@@ -696,7 +694,7 @@ fun Application.routing() {
                                 ordersMap[UUID.fromString(name)] = amount
                             }
                         }
-                        RegistryPool.orderRegistry = OrderRegistry(
+                        RegistryStorage.orderRegistry = OrderRegistry(
                             UUID.fromString(customerId),
                             ordersMap,
                             formattedPurchaseDate
@@ -705,42 +703,49 @@ fun Application.routing() {
                         val customer = CustomerService(databaseConfig).read(UUID.fromString(customerId))
                         val orders = arrayListOf<Map<String, Any>>()
                         var amounts = 0
-                        var totalPrice = 0L
+                        var totalPrice = 0
                         ordersMap.forEach {
                             val product = ProductService(databaseConfig).read(it.key)
                             val amount = it.value
 
-                            if ((product != null) && (amount != 0)) {
-                                amounts += amount
-                                totalPrice += amount * product.price
-                                orders.add(
-                                    mapOf(
-                                        "product_name" to product.productName,
-                                        "amount" to amount,
-                                        "price" to String.format("%,d", amount * product.price)
+                            if ((product != null) and (amount != 0)) if (product != null) {
+                                run {
+                                    amounts += amount
+                                    totalPrice += amount * product.price
+                                    orders.add(
+                                        mapOf(
+                                            "product_name" to product.productName,
+                                            "amount" to amount,
+                                            "price" to String.format("%,d", amount * product.price)
+                                        )
                                     )
-                                )
+                                }
                             }
                         }
-                        val totals = arrayListOf<Map<String, Any>>(
-                            mapOf(
-                                "amounts" to amounts,
-                                "price" to String.format("%,d", totalPrice),
-                                "price_tax" to String.format("%,d", (totalPrice * TAX_INCLUDE).roundToInt())
+
+                        if (orders.isNotEmpty()) {
+                            val totals = arrayListOf<Map<String, Any>>(
+                                mapOf(
+                                    "amounts" to amounts,
+                                    "price" to String.format("%,d", totalPrice),
+                                    "price_tax" to String.format("%,d", (totalPrice * TAX_INCLUDE).roundToInt())
+                                )
                             )
-                        )
 
-                        val model = mapOf(
-                            "tab" to TAB,
-                            "title" to TITLE,
-                            "identifier" to session.identifier,
-                            "customer" to customer,
-                            "orders" to orders,
-                            "totals" to totals,
-                            "order_date" to formattedPurchaseDate
-                        )
+                            val model = mapOf(
+                                "tab" to TAB,
+                                "title" to TITLE,
+                                "identifier" to session.identifier,
+                                "customer" to customer,
+                                "orders" to orders,
+                                "totals" to totals,
+                                "order_date" to formattedPurchaseDate
+                            )
 
-                        call.respond(MustacheContent("order/confirm.hbs", model))
+                            call.respond(MustacheContent("order/confirm.hbs", model))
+                        } else {
+                            call.respondRedirect("$ORDER/edit/$customerId")
+                        }
                     } else {
                         call.respondRedirect("$ORDER/edit/$customerId")
                     }
@@ -757,7 +762,7 @@ fun Application.routing() {
                     val accountId = session.id
 
                     val conditions = arrayListOf<OrderCondition>()
-                    RegistryPool.orderRegistry.orders.forEach {
+                    RegistryStorage.orderRegistry.orders.forEach {
                         conditions.add(OrderCondition(it.key.toString(), it.value))
                     }
 
@@ -766,7 +771,7 @@ fun Application.routing() {
                             id = null,
                             customerId = customerId,
                             condition = Json.encodeToString(conditions),
-                            orderDate = RegistryPool.orderRegistry.orderDate,
+                            orderDate = RegistryStorage.orderRegistry.orderDate,
                             createDate = date,
                             updateDate = date,
                             createAccount = accountId,
@@ -778,6 +783,11 @@ fun Application.routing() {
                 } else {
                     call.respondRedirect(LOGIN)
                 }
+            }
+        }
+        route(SETTING) {
+            get("/top") {
+
             }
         }
         get(INDEX) {
