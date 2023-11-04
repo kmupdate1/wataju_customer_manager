@@ -71,7 +71,8 @@
         <div class="list-group">
             {{#products}}
                 <a href="/product/{{id}}"
-                   class="list-group-item list-group-item-action">
+                   class="list-group-item list-group-item-action"
+                   {{^enabled}}style="color:red"{{/enabled}}>
                     {{productName}}
                 </a>
             {{/products}}

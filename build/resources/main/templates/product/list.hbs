@@ -38,7 +38,7 @@
                     <a class="nav-link" href="/product/list">商品情報</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/setting/index">設定</a>
+                    <a class="nav-link" href="/setting/top">設定</a>
                 </li>
             </ul>
         </div>
@@ -71,7 +71,8 @@
         <div class="list-group">
             {{#products}}
                 <a href="/product/{{id}}"
-                   class="list-group-item list-group-item-action">
+                   class="list-group-item list-group-item-action"
+                   {{^enabled}}style="color:red"{{/enabled}}>
                     {{productName}}
                 </a>
             {{/products}}

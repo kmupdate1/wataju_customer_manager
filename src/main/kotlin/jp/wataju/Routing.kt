@@ -584,7 +584,7 @@ fun Application.routing() {
                     val customerId = UUID.fromString(call.parameters["customerId"])
 
                     val customer = CustomerService(databaseConfig).read(customerId)
-                    val orders = OrderService(databaseConfig).readByCustomerId(customerId)
+                    val orders = OrderService(databaseConfig).readByCustomer(customerId)
 
                     val model = mapOf(
                         "tab" to TAB,
@@ -660,7 +660,6 @@ fun Application.routing() {
                 if (session.id != null) {
                     val customerId = call.parameters["customerId"]
                     val customer = CustomerService(databaseConfig).read(UUID.fromString(customerId))
-
                     val products = ProductService(databaseConfig).read()
 
                     val model = mapOf(

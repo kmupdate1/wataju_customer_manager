@@ -73,10 +73,10 @@ class OrderService(
             .singleOrNull()
     }
 
-    suspend fun readByCustomerId(customerId: UUID): MutableList<Order?> {
+    suspend fun readByCustomer(customerId: UUID): MutableList<Order?> {
         val orders = mutableListOf<Order?>()
         dbQuery {
-            Orders.select { Orders.customerId eq customerId }
+            Orders.select { Orders.customerId eq customerId }.orderBy(Orders.orderDate)
                 .forEach {
                     orders.add(
                         Order(

@@ -38,7 +38,7 @@
                     <a class="nav-link" href="/product/list">商品情報</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/setting/index">設定</a>
+                    <a class="nav-link" href="/setting/top">設定</a>
                 </li>
             </ul>
         </div>
@@ -72,7 +72,7 @@
             <table class="table">
                 <tr><th>商品名</th><td>{{productName}}</td></tr>
                 <tr><th>価格（税込み）</th><td>{{priceFormatted}}円（{{priceTaxFormatted}}円）</td></tr>
-                <tr><th>取扱状況</th><td>{{condition}}</td></tr>
+                <tr><th>取扱状況</th><td {{^enabled}}style="color:red"{{/enabled}}>{{condition}}</td></tr>
             </table>
             <br>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
