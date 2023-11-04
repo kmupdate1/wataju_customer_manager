@@ -78,7 +78,7 @@
                 <tr><th>商品名</th><td>{{productName}}</td></tr>
                 <tr><th>商品名（カナ）</th><td>{{productNameKana}}</td></tr>
                 <tr><th>価格（円）</th><td>{{price}}</td></tr>
-                <tr><th>取扱状況</th><td>{{condition}}</td></tr>
+                <tr><th>取扱状況</th><td {{^enabled}}style="color:red"{{/enabled}}>{{condition}}</td></tr>
             </table>
             <br>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">

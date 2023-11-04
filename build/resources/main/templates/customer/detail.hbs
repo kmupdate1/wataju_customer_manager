@@ -80,22 +80,45 @@
             </table>
             <br>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <div class="p-2 bd-highlight">
+                <div class="p-2 db-highlight">
                     <a href="/customer/edit/{{id}}"
                        class="btn btn-outline-info">編集する</a>
                 </div>
-                <div class="p-2 bd-highlight">
+                <div class="p-2 db-highlight">
                     <a href="/order/{{id}}"
                        class="btn btn-outline-warning">注文状況確認</a>
                 </div>
-                <div class="p-2 bd-highlight">
+                <div class="p-2 db-highlight">
                     <a href="/order/edit/{{id}}"
                        class="btn btn-outline-success">注文情報追加</a>
                 </div>
                 {{#admin}}
-                    <div class="p-2 bd-highlight">
-                        <a href="/customer/delete/{{id}}"
-                       class="btn btn-outline-danger">削除する</a>
+                    <div class="p-2 db-highlight">
+                        <button type="button"
+                                class="btn btn-outline-danger"
+                                data-bs-toggle="modal"
+                                data-bs-target="#customer-delete">
+                            削除する
+                        </button>
+                    </div>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="customer-delete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">お客様情報の削除</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    本当に、<b>{{familyName}} {{firstName}}</b>様の情報を削除しますか？
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                                    <a href="/customer/delete/{{id}}" class="btn btn-danger">削除する</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 {{/admin}}
             </div>

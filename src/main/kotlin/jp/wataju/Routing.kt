@@ -563,18 +563,6 @@ fun Application.routing() {
                     call.respondRedirect(LOGIN)
                 }
             }
-            get("/delete/{productId}") {
-                val session = call.sessions.get() ?: AccountSession(null, null, null)
-
-                if (session.id != null) {
-                    val productId = call.parameters["productId"] ?: ""
-                    ProductService(databaseConfig).delete(UUID.fromString(productId))
-
-                    call.respondRedirect("$PRODUCT/list")
-                } else {
-                    call.respondRedirect(LOGIN)
-                }
-            }
         }
         route(ORDER) {
             get("/{customerId}") {

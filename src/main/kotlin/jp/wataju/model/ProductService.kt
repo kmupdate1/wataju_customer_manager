@@ -42,7 +42,7 @@ class ProductService(
     suspend fun read(): MutableList<Product?> {
         val products = mutableListOf<Product?>()
         dbQuery {
-            Products.selectAll().orderBy(Products.productNameKana)
+            Products.selectAll().orderBy(Products.enabled, SortOrder.DESC)
                 .forEach {
                     products.add(
                         Product(
