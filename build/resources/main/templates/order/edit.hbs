@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/jpg" href="/image/icon/wataju_logo.jpg" sizes="16x16 24x24 32x32 48x48 64x64">
+    <title>{{tab}}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous">
+    </script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/index">{{title}}</a>
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/wataju/customer_manager/customer/list">お客様情報</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/wataju/customer_manager/product/list">商品情報</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/wataju/customer_manager/setting/index">設定</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="alert alert-primary">
+        <div class="row">
+            <div class="col order-first">
+                <div class="d-flex flex-row bd-highlight mb-3">
+                    <div class="p-2 bd-highlight">
+                        <h5>こんにちは、{{identifier}}さん</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col order-last">
+                <div class="d-flex flex-row-reverse bd-highlight">
+                    <div class="p-2 bd-highlight">
+                        <a href="/logout" class="btn btn-outline-primary btn-sm">ログアウト</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div>
+        <h2>{{customer.familyName}} {{customer.firstName}}様の新規注文情報追加</h2>
+        <br>
+        <div class="d-grid gap-3">
+            <form method="post" action="/order/confirm/{{customer.id}}">
+                {{#products}}
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item list-group-item-action">
+                            <div class="row">
+                                <div class="col">
+                                    <h5>{{productName}}</h5>
+                                </div>
+                                <div class="col">
+                                    <select class="form-select form-select-sm"
+                                            name="{{id}}"
+                                            id="{{id}}"
+                                            aria-label=".form-select-sm example">
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                        <option value="13">13</option>
+                                        <option value="14">14</option>
+                                        <option value="15">15</option>
+                                        <option value="16">16</option>
+                                        <option value="17">17</option>
+                                        <option value="18">18</option>
+                                        <option value="19">19</option>
+                                        <option value="20">20</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                {{/products}}
+                <ul>
+                    <li class="list-group-item list-group-item-info">
+                        <div class="row">
+                            <div class="col">
+                                <label for="purchase-date" class="form-label">購入日</label>
+                                <input type="date" class="form-text" name="purchase-date" id="purchase-date">
+                            </div>
+                            <div class="col"></div>
+                        </div>
+                    </li>
+                </ul>
+                <br>
+                <button type="submit" class="btn btn-outline-danger">確認</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
