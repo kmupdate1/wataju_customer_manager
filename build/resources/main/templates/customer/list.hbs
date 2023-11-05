@@ -78,8 +78,38 @@
         </div>
         <br>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-outline-warning"
+                    type="button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#import-customers-from-csv">
+                ファイルからインポートする
+            </button>
             <a href="/customer/edit"
-               class="btn btn-lg btn-outline-info">追加する</a>
+               class="btn btn-outline-info">
+                追加する
+            </a>
+        </div>
+        <!-- modal -->
+        <div class="modal fade" id="import-customers-from-csv" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">お客様情報のファイルを選択してください</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="post" action="/customer/import">
+                        <div class="modal-body">
+                            <div class="input-group mb-3">
+                                <input type="file" class="form-control" id="inputGroupFile02">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">キャンセル</button>
+                            <button type="submit" class="btn btn-info">実行</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>

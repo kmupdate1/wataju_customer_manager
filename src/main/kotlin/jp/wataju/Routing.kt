@@ -359,6 +359,8 @@ fun Application.routing() {
                     call.respondRedirect(LOGIN)
                 }
             }
+            post("/import") {
+            }
         }
         route(PRODUCT) {
             get("/list") {
