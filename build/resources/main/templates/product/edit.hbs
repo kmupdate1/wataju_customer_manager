@@ -77,15 +77,15 @@
             <form method="post" action="/product/confirm{{^new_product}}/{{product.id}}{{/new_product}}">
                 <div class="form-group">
                     <label for="product-name">商品名</label>
-                    <input class="form-control" type="text" name="product-name" id="product-name">
+                    <input class="form-control" type="text" name="product-name" id="product-name"{{^new_product}} value="{{product.productName}}"{{/new_product}}>
                 </div>
                 <div class="form-group">
                     <label for="product-name-kana">商品名（カナ）</label>
-                    <input class="form-control" type="text" name="product-name-kana" id="product-name-kana">
+                    <input class="form-control" type="text" name="product-name-kana" id="product-name-kana"{{^new_product}} value="{{product.productNameKana}}"{{/new_product}}>
                 </div>
                 <div class="form-group">
                     <label for="price">価格（円）</label>
-                    <input class="form-control" type="text" name="price" id="price">
+                    <input class="form-control" type="text" name="price" id="price"{{^new_product}} value="{{product.price}}"{{/new_product}}>
                 </div>
                 <div class="form-check form-switch">
                     <label for="enabled">取り扱い状況</label>

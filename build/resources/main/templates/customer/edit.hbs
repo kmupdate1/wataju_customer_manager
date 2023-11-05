@@ -77,27 +77,27 @@
             <form method="post" action="/customer/confirm{{^new_customer}}/{{customer.id}}{{/new_customer}}" class="row g-3">
                 <div class="col-md-6">
                     <label for="family-name">お客様姓</label>
-                    <input class="form-control" type="text" name="family-name" id="family-name" placeholder="山田">
+                    <input class="form-control" type="text" name="family-name" id="family-name" placeholder="山田" {{^new_customer}}value="{{customer.familyName}}"{{/new_customer}}>
                 </div>
                 <div class="col-md-6">
                     <label for="first-name">お客様名</label>
-                    <input class="form-control" type="text" name="first-name" id="first-name" placeholder="太郎">
+                    <input class="form-control" type="text" name="first-name" id="first-name" placeholder="太郎" {{^new_customer}}value="{{customer.firstName}}"{{/new_customer}}>
                 </div>
                 <div class="col-md-6">
                     <label for="family-name-kana">お客様姓（カナ）</label>
-                    <input class="form-control" type="text" name="family-name-kana" id="family-name-kana" placeholder="ヤマダ">
+                    <input class="form-control" type="text" name="family-name-kana" id="family-name-kana" placeholder="ヤマダ" {{^new_customer}}value="{{customer.familyNameKana}}"{{/new_customer}}>
                 </div>
                 <div class="col-md-6">
                     <label for="first-name-kana">お客様名（カナ）</label>
-                    <input class="form-control" type="text" name="first-name-kana" id="first-name-kana" placeholder="タロウ">
+                    <input class="form-control" type="text" name="first-name-kana" id="first-name-kana" placeholder="タロウ" {{^new_customer}}value="{{customer.firstNameKana}}"{{/new_customer}}>
                 </div>
                 <div class="col-md-3">
                     <label for="zipcode-ward">郵便番号（区）</label>
-                    <input class="form-control" type="text" name="zipcode-ward" id="zipcode-ward" placeholder="123">
+                    <input class="form-control" type="text" name="zipcode-ward" id="zipcode-ward" placeholder="123" {{^new_customer}}value="{{customer.zipcodeWard}}"{{/new_customer}}>
                 </div>
                 <div class="col-md-3">
                     <label for="zipcode-town">郵便番号（地域）</label>
-                    <input class="form-control" type="text" name="zipcode-town" id="zipcode-town" placeholder="4567">
+                    <input class="form-control" type="text" name="zipcode-town" id="zipcode-town" placeholder="4567" {{^new_customer}}value="{{customer.zipcodeTown}}"{{/new_customer}}>
                 </div>
                 <div class="col-md-6">
                     <label for="prefecture">都道府県</label>
@@ -152,23 +152,23 @@
                 </div>
                 <div class="col-12">
                     <label for="address-1">住所１</label>
-                    <input class="form-control" type="text" name="address-1" id="address-1" placeholder="安八郡神戸町">
+                    <input class="form-control" type="text" name="address-1" id="address-1" placeholder="安八郡神戸町" {{^new_customer}}value="{{customer.address1}}"{{/new_customer}}>
                 </div>
                 <div class="col-12">
                     <label for="address-2">住所２</label>
-                    <input class="form-control" type="text" name="address-2" id="address-2" placeholder="川西">
+                    <input class="form-control" type="text" name="address-2" id="address-2" placeholder="川西" {{^new_customer}}value="{{customer.address2}}"{{/new_customer}}>
                 </div>
                 <div class="col-12">
                     <label for="address-3">住所３</label>
-                    <input class="form-control" type="text" name="address-3" id="address-3" placeholder="88-1">
+                    <input class="form-control" type="text" name="address-3" id="address-3" placeholder="88-1" {{^new_customer}}value="{{customer.address3}}"{{/new_customer}}>
                 </div>
                 <div class="col-md-6">
                     <label for="phone-number">電話番号</label>
-                    <input class="form-control" type="text" name="phone-number" id="phone-number" placeholder="090-0000-0000">
+                    <input class="form-control" type="text" name="phone-number" id="phone-number" placeholder="090-0000-0000" {{^new_customer}}value="{{customer.phoneNumber}}"{{/new_customer}}>
                 </div>
                 <div class="col-md-6">
                     <label for="mail-address">メールアドレス</label>
-                    <input class="form-control" type="text" name="mail-address" id="mail-address" placeholder="wataju@example.co.jp">
+                    <input class="form-control" type="text" name="mail-address" id="mail-address" placeholder="wataju@example.co.jp" {{^new_customer}}value="{{customer.mailAddress}}"{{/new_customer}}>
                 </div>
                 <br>
                 <button type="submit" class="btn btn-outline-danger">確認</button>
