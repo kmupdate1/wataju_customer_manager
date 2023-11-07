@@ -97,10 +97,14 @@
                         <h1 class="modal-title fs-5" id="exampleModalLabel">お客様情報のファイルを選択してください</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="post" action="/customer/import">
+                    <form method="post" action="/customer/import" enctype="multipart/form-data">
                         <div class="modal-body">
                             <div class="input-group mb-3">
-                                <input type="file" class="form-control" id="inputGroupFile02">
+                                <input type="file"
+                                       accept="text/csv"
+                                       class="form-control"
+                                       id="inputGroupFile02"
+                                       name="inputGroupFile02">
                             </div>
                         </div>
                         <div class="modal-footer">

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DBNavigator.Project.DataEditorManager">
+    <record-view-column-sorting-type value="BY_INDEX" />
+    <value-preview-text-wrapping value="true" />
+    <value-preview-pinned value="false" />
+  </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
@@ -10,6 +15,9 @@
     <connection id="fe37a5e0-85d3-448e-8fdb-2cface3f3f5b">
       <console name="Connection" type="STANDARD" schema="" session="Main" />
     </connection>
+  </component>
+  <component name="DBNavigator.Project.DatabaseEditorStateManager">
+    <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />

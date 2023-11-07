@@ -8,6 +8,7 @@ object Properties {
     private const val jLanguage = "/japanese.properties"
     private const val routePath = "/path.properties"
     private const val conditions = "/condition.properties"
+    private const val column = "/column.properties"
 
     private val properties = Properties()
 
@@ -23,6 +24,10 @@ object Properties {
                 properties.load(stream?.let { InputStreamReader(it, Charsets.UTF_8) })
             }
         this::class.java.classLoader.getResourceAsStream("$path$conditions")
+            .use { stream ->
+                properties.load(stream?.let { InputStreamReader(it, Charsets.UTF_8) })
+            }
+        this::class.java.classLoader.getResourceAsStream("$path$column")
             .use { stream ->
                 properties.load(stream?.let { InputStreamReader(it, Charsets.UTF_8) })
             }

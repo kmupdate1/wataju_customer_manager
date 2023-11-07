@@ -6,6 +6,7 @@ val logback_version: String by project
 val exposed_version: String by project
 val postgresql_version: String by project
 val serialization_version: String by project
+val kotlinCSV_version: String by project
 
 plugins {
     kotlin("jvm") version "1.8.10"
@@ -42,6 +43,8 @@ dependencies {
     implementation("org.postgresql:postgresql:$postgresql_version")
 
     implementation("ch.qos.logback:logback-classic:$logback_version")
+
+    implementation("com.github.doyaaaaaken:kotlin-csv-jvm:$kotlinCSV_version")
 
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")

@@ -6,6 +6,7 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.sessions.*
+import jp.wataju.csv.Writer
 import jp.wataju.model.*
 import jp.wataju.session.AccountSession
 import jp.wataju.util.IsNumeric
@@ -360,6 +361,15 @@ fun Application.routing() {
                 }
             }
             post("/import") {
+                val session = call.sessions.get() ?: AccountSession(null, null, null)
+
+                if (session.id != null) {
+                    Writer(databaseConfig).write(call.receiveMultipart(), session.id)
+
+                    call.respondRedirect("$CUSTOMER/list")
+                } else {
+                    call.respondRedirect(LOGIN)
+                }
             }
         }
         route(PRODUCT) {
